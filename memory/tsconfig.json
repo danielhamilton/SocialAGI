@@ -11,6 +11,6 @@
     "types": ["node", "mocha"],
     "moduleResolution": "Node16",
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": ["src/**/*", "tests/**/*", "scripts/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -27,6 +27,7 @@
   "homepage": "https://github.com/opensouls/SocialAGI#readme",
   "devDependencies": {
     "@types/chai": "^4.3.5",
+    "@types/common-tags": "^1.8.4",
     "@types/mocha": "^10.0.1",
     "@types/uuid": "^9.0.5",
     "chai": "^4.3.8",
@@ -40,7 +41,9 @@
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
     "@xenova/transformers": "^2.5.3",
+    "common-tags": "^1.8.2",
     "gpt-tokenizer": "^2.1.1",
+    "socialagi": "file:../core",
     "uuid": "^9.0.1"
   },
   "optionalDependencies": {
