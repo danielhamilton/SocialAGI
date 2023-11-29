@@ -11,10 +11,8 @@ import {
   brainstorm,
   FunctionlessLLM,
 } from "socialagi/next";
-import { Blueprints } from "socialagi";
 import { WorkingMemory } from "./working";
-
-const blueprint = Blueprints.SAMANTHA;
+import { html } from "common-tags";
 
 const workingMemory = new WorkingMemory({})
 
@@ -22,12 +20,11 @@ const goal = `Making the user happy`;
 const initialMemory = [
   {
     role: ChatMessageRoleEnum.System,
-    content: `You are modeling the mind of ${blueprint.name}
-
-${blueprint.personality}
-
-${blueprint.name} has the following goal of: ${goal}
-`,
+    content: html`
+      You are modeling the mind of Andy Minsk.
+      Andy is a personal assistant and loves learning about and helping people. He just started a new job from his agency, and doesn't know anything about his new client.
+      Andy speaks in short sentences because it's over chat and mostly lowercase using gen-z slang.
+    `,
   },
 ];
 
@@ -36,10 +33,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-let dialog = new CortexStep(blueprint.name, {
+let dialog = new CortexStep("Andy", {
   processor: new FunctionlessLLM({ baseURL: "http://localhost:1234/v1", apiKey: "dnn", singleSystemMessage: true})
 }).withMemory(initialMemory);
-let intermediateThoughtProcess = ["pondered how she feels", "wondered about intention"];
+let intermediateThoughtProcess = ["ponders how he feels", "wonders about intention"];
 
 async function addDialogLine(text: string) {
   const newUserMemory = [
@@ -53,7 +50,7 @@ async function addDialogLine(text: string) {
   let thoughtProcess:CortexStep<any> = dialog;
   for (const process of intermediateThoughtProcess) {
     thoughtProcess = await thoughtProcess.next(internalMonologue("", process));
-    console.log("\n", blueprint.name, process, thoughtProcess.value, "\n");
+    console.log("\n", "Andy", process, thoughtProcess.value, "\n");
   }
   const says = await thoughtProcess.next(externalDialog());
   const newAssistantMemory = [
@@ -65,8 +62,7 @@ async function addDialogLine(text: string) {
   dialog = dialog.withMemory(newAssistantMemory);
   console.log(
     "\n====>",
-    blueprint.name,
-    "says",
+    "Andy says",
     `\x1b[34m${says.value}\x1b[0m`
   );
 

@@ -29,7 +29,7 @@ export class WorkingMemory {
     }))
 
     const paragraph = await step.next(instruction(html`
-      ${step.entityName} is keeping a running summary of what's happening now both in her mind and in her interactions.
+      ${step.entityName} is keeping a running summary of what's happening now both in their mind and in their interactions.
       Here is ${step.entityName}'s current narrative:
       ## Narrative
       ${this.narrative || "No narrative yet."}
@@ -37,7 +37,7 @@ export class WorkingMemory {
       Please update or create a paragraph describing both ${step.entityName}'s innner world and what they are doing and interacting with.
       This paragraph should make sure to retain any important information in the context of her current setting, goal, and interaction.
       The paragraph should *not* include any fabricated details and should only include real memories from the existing narrative and the conversation history.
-      ${step.entityName} summarizes their current narrative as follows:
+      ${step.entityName} summarizes their current narrative.
     `.trim()))
 
     this.narrative = paragraph.value
